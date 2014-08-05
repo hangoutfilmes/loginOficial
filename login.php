@@ -1,6 +1,7 @@
 <?php
  echo'<meta charset=UTF-8>';
  include_once 'conexao/conecta.inc';
+ include_once 'classes/Bycript.class.php';
  $email = isset($_POST['email']) ? $_POST['email']: null;
  $senha = isset($_POST['senha']) ? $_POST['senha']: null;
  $tipoUsuario = isset ($_POST['tipo']) ? $_POST['tipo']: null;
@@ -16,7 +17,7 @@ if ($totalUsuario === 0)
     $usuarios = mysql_fetch_array($result);
     $senhaUsuario = $usuarios['SENHA_USUARIO'];
     $tipoUsuario = $usuarios['TIPO_USUARIO'];
-    if($senha !== $senhaUsuario){
+    if(!Bcrypt::check ($senha,$senhaUsuario)){
         echo '<a href=frmUsuario.php> Senha não confere! </a>';
     }else{
         session_start();

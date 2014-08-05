@@ -3,6 +3,7 @@
 function validaAutenticacao($link,$tipo)
 {
     echo '<meta charset=UTF-8>';
+    include_once'classes/Bycript.class.php';
     session_start();
     if (!isset($_SESSION['email']) or !isset($_SESSION['senha'])){
         session_destroy();
@@ -12,8 +13,8 @@ function validaAutenticacao($link,$tipo)
         </script>';
         
     }else{
-    if(tipo=== 'RES'){include_once 'conexao/conecta.inc';}
-    if(tipo=== 'ADM'){include_once '../conexao/conecta.inc';}
+    if($tipo=== 'RES'){include_once 'conexao/conecta.inc';}
+    if($tipo=== 'ADM'){include_once '../conexao/conecta.inc';}
     $email = $_SESSION['email'];
     $senha = $_SESSION['senha'];
     $query ="SELECT * FROM usuario WHERE EMAIL_USUARIO=' $email'";
@@ -23,10 +24,10 @@ function validaAutenticacao($link,$tipo)
         $usuarios = mysql_fetch_assoc($result);
         $senhaBanco = $usuarios['SENHA_USUARIO'];
         $tipoBanco = $usuarios['TIPO_USUARIO'];
-            if($senha !==$senhaBanco){
+            if(!Bcrypt::check($senha,$senhaBanco)){
                 session_destroy();
                 echo'<script>
-                alert ("Acesso Negado !\n Sua Senha nao confere.")
+                alert ("Acesso Negado !\n Sua Senha nao conferer.")
                 location.href="'.$link.'"
                         </script>';
                              }
