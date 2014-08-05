@@ -17,7 +17,7 @@ function validaAutenticacao($link,$tipo)
     if($tipo=== 'ADM'){include_once '../conexao/conecta.inc';}
     $email = $_SESSION['email'];
     $senha = $_SESSION['senha'];
-    $query ="SELECT * FROM usuario WHERE EMAIL_USUARIO=' $email'";
+    $query ="SELECT * FROM usuario WHERE EMAIL_USUARIO='$email'";
     $result= mysql_query ($query);
     $totalUsuario= mysql_num_rows($result);
     if($totalUsuario  !== 0){
@@ -27,7 +27,7 @@ function validaAutenticacao($link,$tipo)
             if(!Bcrypt::check($senha,$senhaBanco)){
                 session_destroy();
                 echo'<script>
-                alert ("Acesso Negado !\n Sua Senha nao conferer.")
+                alert ("Acesso Negado !\n Sua Senha nao confere.")
                 location.href="'.$link.'"
                         </script>';
                              }
