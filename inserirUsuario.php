@@ -19,3 +19,4 @@ if(mysql_query($query))
 }else{
     echo mysql_error();
 }
+// espaço antes do VALUE !
