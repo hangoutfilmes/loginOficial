@@ -10,7 +10,8 @@ $tipo = 'RES';
 $senha = Bcrypt::hash($senha);
 
 $query = "INSERT INTO usuario (NOME_USUARIO,EMAIL_USUARIO,SENHA_USUARIO,TIPO_USUARIO)";
-$query.= "VALUES('$nome', '$email', '$senha', '$tipo')";
+//$query.= "VALUES('$nome', '$email', '$senha', '$tipo')";
+$query.= " VALUES('$nome', '$email', '$senha', '$tipo')";
 
 if(mysql_query($query))
 {
